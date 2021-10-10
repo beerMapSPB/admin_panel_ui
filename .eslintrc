@@ -5,6 +5,12 @@
       "es2021": true,
       "node": true
   },
+  "globals": {
+    "defineProps": "readonly",
+    "defineEmits": "readonly",
+    "defineExpose": "readonly",
+    "withDefaults": "readonly"
+  },
   "parser": "vue-eslint-parser",
   "extends": [
     "plugin:vue/vue3-recommended",
@@ -47,6 +53,7 @@
       "anonymous": "never",
       "named": "never"
     }],
-    "import/no-absolute-path": 0
+    "import/no-absolute-path": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0
   }
 }
