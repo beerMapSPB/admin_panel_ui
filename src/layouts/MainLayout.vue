@@ -8,7 +8,7 @@ import Header from './components/Header.vue'
     <Header class="w-full sm:hidden" />
     <div class="flex-grow flex">
       <Menu class="hidden sm:block" />
-      <div>
+      <div class="flex-grow">
         <RouterView />
       </div>
     </div>

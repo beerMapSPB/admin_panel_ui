@@ -1,18 +1,22 @@
 # Admin panel UI
-1. Install dependencies:
+Install dependencies
+```
+npm install
+```
+
+### To launch locally
+
+1. Build and serve in launch mode
     ```
-    npm install
+    npm run dev
     ```
-2. Build
+2. Run json-server to mock requests to back-end
+    ```
+    npm run mock-server
+    ```
 
-    a. Run locally in watch mode
+### To make a build
 
-      ```
-      npm run dev
-      ```
-
-    b. Make a build
-
-      ```
-      npm run build
-      ```
+```
+npm run build
+```

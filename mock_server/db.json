@@ -1,0 +1,12 @@
+{
+  "places": [
+    {
+      "id": "1",
+      "type": "bar",
+      "title": "Bar 1",
+      "address": "Address 1",
+      "description": "Good place",
+      "phone": 12345666 
+    }
+  ]
+}

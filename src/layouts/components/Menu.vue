@@ -8,7 +8,7 @@ const props = defineProps({
     type: Array as PropType<MenuItem[]>,
     default: () => [
       {
-        name: 'places',
+        name: 'places-list',
         label: 'Places',
         icon: 'map-pin'
       }
@@ -29,7 +29,7 @@ const props = defineProps({
       >
         <Icon :name="item.icon"
               :size="20"
-              class="text-gray-500 mr-1"
+              class="text-gray-500 mr-2"
               :class="[isActive && 'text-blue-600']"
         />
         {{ item.label }}
