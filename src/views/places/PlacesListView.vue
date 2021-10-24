@@ -1,15 +1,11 @@
 <template>
-  <div class="flex justify-between px-6 py-6 mb-4">
-    <div>
-      <h1 class="text-xl font-medium">
-        Places
-      </h1>
-      <h3 class="text-gray-500 text-sm">
-        Total {{ placesCount }}
-      </h3>
-    </div>
-    <button>Add</button>
-  </div>
+  <ViewHeader title="Places"
+              :subtitle="'Total ' + placesCount"
+  >
+    <template #actions>
+      <button>Add</button>
+    </template>
+  </ViewHeader>
   <Table :cols="tableCols"
          class="w-full"
          :data="places"
@@ -19,11 +15,12 @@
 
 <script lang='ts' setup async>
 import { onMounted, Ref, ref } from '@vue/runtime-core'
+import { useRouter } from 'vue-router'
 import { Place } from '/~/models/Place'
 import { getPlaces } from '/~/services/places'
 import Table from '/~/components/table/Table.vue'
 import { Column } from '/~/components/table/types/Column'
-import { useRouter } from 'vue-router'
+import ViewHeader from '/~/components/view-header/view-header.vue'
 
 const router = useRouter()
 const places: Ref<Place[]> = ref([])

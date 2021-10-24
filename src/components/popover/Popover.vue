@@ -16,7 +16,7 @@
     >
       <div v-if="isOpen"
            v-click-outside="close"
-           class="w-40 absolute bg-white border border-gray-200 shadow-sm py-1 top-full"
+           class="w-40 absolute bg-white border border-gray-200 shadow-sm py-1 top-full z-10"
       >
         <slot name="content" />
       </div>

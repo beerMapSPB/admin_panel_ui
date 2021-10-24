@@ -1,8 +1,8 @@
 <template>
   <div v-if="place">
-    <h1 class="text-lg font-medium mb-2">
-      {{ place?.title }}
-    </h1>
+    <ViewHeader :title="place.title"
+                :subtitle="'ID: ' + place.id"
+    />
     {{ place }}
   </div>
 </template>
@@ -12,6 +12,7 @@ import { Ref, ref } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
 import { Place } from '/~/models/Place'
 import { getPlaceById } from '/~/services/places'
+import ViewHeader from '/~/components/view-header/view-header.vue'
 
 const props = defineProps<{
   id: string

@@ -7,6 +7,14 @@
       "address": "Address 1",
       "description": "Good place",
       "phone": 12345666 
+    },
+    {
+      "id": "2",
+      "type": "bar",
+      "title": "Bar 2",
+      "address": "Address 2",
+      "description": "Bad place",
+      "phone": 12345666 
     }
   ]
 }

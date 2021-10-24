@@ -37,7 +37,9 @@
         </template>
       </td>
       <!-- Actions button cell -->
-      <td v-if="actions && actions.length">
+      <td v-if="actions && actions.length"
+          class="border pl-4 py-2"
+      >
         <PopoverMenu :options="actions"
                      :data="row"
                      class="max-w-max mx-auto"
