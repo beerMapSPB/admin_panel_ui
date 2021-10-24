@@ -1,8 +1,10 @@
 <template>
-  <div v-click-outside="close"
-       class="relative"
+  <div
+    class="relative"
   >
-    <button @click="toggle">
+    <button class="w-full"
+            @click="toggle"
+    >
       <slot />
     </button>
     <transition enter-active-class="transition duration-100 ease-in-out"
@@ -13,6 +15,7 @@
                 leave-to-class="-translate-y-2 opacity-0"
     >
       <div v-if="isOpen"
+           v-click-outside="close"
            class="w-40 absolute bg-white border border-gray-200 shadow-sm py-1 top-full"
       >
         <slot name="content" />

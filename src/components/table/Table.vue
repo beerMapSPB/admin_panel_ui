@@ -36,11 +36,11 @@
           {{ row[col.param] }}
         </template>
       </td>
-
+      <!-- Actions button cell -->
       <td v-if="actions && actions.length">
         <PopoverMenu :options="actions"
                      :data="row"
-                     class="flex justify-center"
+                     class="max-w-max mx-auto"
         >
           <Icon name="more-horizontal"
                 class="text-gray-500"

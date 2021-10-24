@@ -1,7 +1,15 @@
 <template>
-  <h1 class="text-lg font-medium mb-2">
-    Places
-  </h1>
+  <div class="flex justify-between px-6 py-6 mb-4">
+    <div>
+      <h1 class="text-xl font-medium">
+        Places
+      </h1>
+      <h3 class="text-gray-500 text-sm">
+        Total {{ placesCount }}
+      </h3>
+    </div>
+    <button>Add</button>
+  </div>
   <Table :cols="tableCols"
          class="w-full"
          :data="places"
@@ -19,6 +27,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const places: Ref<Place[]> = ref([])
+const placesCount = ref(1)
 
 onMounted(async () => {
   places.value = await getPlaces()

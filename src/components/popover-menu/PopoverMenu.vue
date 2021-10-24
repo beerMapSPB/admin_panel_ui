@@ -33,7 +33,7 @@ const props = defineProps<{
   /**
    * Data to be passed into option handler
    */
-  data: any
+  data?: any
 }>()
 
 function handleClick(option: Option) {
