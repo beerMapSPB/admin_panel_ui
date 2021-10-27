@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import './index.css'
 import vClickOutside from 'click-outside-vue3'
+import 'noidea-ui/dist/style.css'
 
 const app = createApp(App)
 

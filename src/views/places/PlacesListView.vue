@@ -3,7 +3,9 @@
               :subtitle="'Total ' + placesCount"
   >
     <template #actions>
-      <button>Add</button>
+      <Button @click="goToNewPlaceForm()">
+        Add
+      </Button>
     </template>
   </ViewHeader>
   <Table :cols="tableCols"
@@ -13,7 +15,8 @@
   />
 </template>
 
-<script lang='ts' setup async>
+<script lang='ts' setup>
+import { Button } from 'noidea-ui'
 import { onMounted, Ref, ref } from '@vue/runtime-core'
 import { useRouter } from 'vue-router'
 import { Place } from '/~/models/Place'
@@ -84,5 +87,9 @@ const tableActions = [
     }
   }
 ]
+
+function goToNewPlaceForm() {
+  router.push({ name: 'create-place' })
+}
 
 </script>

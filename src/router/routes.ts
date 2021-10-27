@@ -20,6 +20,11 @@ export default [
         path: 'places/:id',
         props: ({ params }: { params: RouteParams }) => ({ id: params.id }),
         component: () => import('/~/views/places/SinglePlaceView.vue')
+      },
+      {
+        name: 'create-place',
+        path: 'places/new',
+        component: () => import('/~/views/places/PlaceForm.vue')
       }
     ]
   }
