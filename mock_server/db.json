@@ -2,19 +2,37 @@
   "places": [
     {
       "id": "1",
-      "type": "bar",
-      "title": "Bar 1",
+      "types": [{ "id": 1, "label": "Bar" }],
+      "name": "Bar 1",
       "address": "Address 1",
       "description": "Good place",
-      "phone": 12345666 
+      "phones": ["12345666"],
+      "web_site": "www.google.com",
+      "socials": [],
+      "logoUrl": "",
+      "rating": { "value": 0, "votes": 0 },
+      "photosUrls": [],
+      "location": { "lat": 0, "lng": 0 },
+      "tags": []
     },
     {
       "id": "2",
-      "type": "bar",
-      "title": "Bar 2",
+      "types": [{ "id": 1, "label": "Bar" }],
+      "name": "Bar 2",
       "address": "Address 2",
       "description": "Bad place",
-      "phone": 12345666 
+      "phones": ["12345666"],
+      "web_site": "www.google.com",
+      "socials": [],
+      "logoUrl": "",
+      "rating": { "value": 0, "votes": 0 },
+      "photosUrls": [],
+      "location": { "lat": 0, "lng": 0 },
+      "tags": []
     }
+  ],
+  "place_types": [
+    { "id": 1, "label": "Bar" },
+    { "id": 2, "label": "Shop" }
   ]
 }

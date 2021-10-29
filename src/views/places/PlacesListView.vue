@@ -17,7 +17,7 @@
 
 <script lang='ts' setup>
 import { Button } from 'noidea-ui'
-import { onMounted, Ref, ref } from '@vue/runtime-core'
+import { computed, onMounted, Ref, ref } from '@vue/runtime-core'
 import { useRouter } from 'vue-router'
 import { Place } from '/~/models/Place'
 import { getPlaces } from '/~/services/places'
@@ -27,7 +27,7 @@ import ViewHeader from '/~/components/view-header/view-header.vue'
 
 const router = useRouter()
 const places: Ref<Place[]> = ref([])
-const placesCount = ref(1)
+const placesCount = computed<number>(() => places.value.length)
 
 onMounted(async () => {
   places.value = await getPlaces()
@@ -42,14 +42,14 @@ const tableCols: Column[] = [
     type: 'text'
   },
   {
-    param: 'title',
+    param: 'name',
     label: {
       text: 'Title'
     },
     type: 'text'
   },
   {
-    param: 'type',
+    param: 'types',
     label: {
       text: 'Type'
     },
