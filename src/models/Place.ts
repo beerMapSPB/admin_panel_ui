@@ -42,13 +42,13 @@ export class PlaceImpl implements Place {
   description = ''
   location = { lat: 0, lng: 0 }
   webSite = ''
-  socials = []
+  socials = [{ name: '', link: '' }]
   types: PlaceType[] = []
   tags = []
   logoUrl = ''
   rating = { value: 0, votes: 0 }
   photosUrls = []
-  phones = []
+  phones = ['']
 
   get typesLabels(): string[] {
     return this.types.map(item => item.label)
