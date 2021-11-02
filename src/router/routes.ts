@@ -25,6 +25,12 @@ export default [
         name: 'create-place',
         path: 'places/new',
         component: () => import('/~/views/places/PlaceForm.vue')
+      },
+      {
+        name: 'edit-place',
+        path: 'places/:id/edit',
+        props: ({ params }: { params: RouteParams }) => ({ id: params.id }),
+        component: () => import('/~/views/places/PlaceForm.vue')
       }
     ]
   }

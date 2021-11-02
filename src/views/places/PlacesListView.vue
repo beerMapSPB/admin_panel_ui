@@ -76,7 +76,7 @@ const tableActions = [
     label: 'Edit',
     icon: 'edit',
     handler: (data: Place) => {
-      alert(data)
+      router.push({ name: 'edit-place', params: { id: data.id }})
     }
   },
   {
