@@ -1,7 +1,9 @@
+import { Expose } from 'class-transformer'
+
 export type PlaceId = string
 
 export type PlaceType = {
-  id: string,
+  value: string,
   label: string
 }
 
@@ -41,13 +43,24 @@ export class PlaceImpl implements Place {
   address = ''
   description = ''
   location = { lat: 0, lng: 0 }
+
+  @Expose({ name: 'web_site' })
   webSite = ''
+
   socials = [{ name: '', link: '' }]
+
   types: PlaceType[] = []
+
   tags = []
+
+  @Expose({ name: 'logo_url' })
   logoUrl = ''
+
   rating = { value: 0, votes: 0 }
+
+  @Expose({ name: 'photo_urls' })
   photosUrls = []
+
   phones = ['']
 
   get typesLabels(): string[] {

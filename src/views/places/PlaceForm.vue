@@ -11,8 +11,8 @@
     </template>
   </ViewHeader>
 
-  <form v-if="form"
-        class="max-w-lg px-6 space-y-8"
+  <div v-if="form"
+       class="max-w-lg px-6 space-y-8"
   >
     <Input v-model="form.name"
            label="Name"
@@ -34,7 +34,7 @@
            placeholder="Web site url"
     />
     <div v-for="(phone, i) in form.phones"
-         :key="phone"
+         :key="'phone-' + i"
          class="flex items-end w-full space-x-2"
     >
       <Input v-model="form.phones[i]"
@@ -105,7 +105,7 @@
         />
       </Button>
     </div>
-  </form>
+  </div>
 </template>
 
 <script lang='ts' setup>
@@ -137,7 +137,7 @@ onMounted(async () => {
   }
   const placeTypes = await getPlaceTypes()
 
-  placeTypesOptions.value = placeTypes.map(item => ({ label: item.label, value: item.id }))
+  placeTypesOptions.value = placeTypes
 })
 
 function addPhone() {
@@ -162,6 +162,7 @@ async function submit() {
   }
   try {
     processing.value = true
+
     if (props.id) {
       await updatePlace(props.id, form.value)
     } else {

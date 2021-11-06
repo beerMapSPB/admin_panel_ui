@@ -1,38 +1,63 @@
 {
   "places": [
     {
-      "id": "1",
-      "types": [{ "id": 1, "label": "Bar" }],
       "name": "Bar 1",
       "address": "Address 1",
-      "description": "Good place",
-      "phones": ["12345666"],
+      "description": "dsfdf",
+      "location": {
+        "lat": 0,
+        "lng": 0
+      },
       "web_site": "www.google.com",
       "socials": [],
-      "logoUrl": "",
-      "rating": { "value": 0, "votes": 0 },
-      "photosUrls": [],
-      "location": { "lat": 0, "lng": 0 },
-      "tags": []
+      "types": [],
+      "tags": [],
+      "rating": {
+        "value": 0,
+        "votes": 0
+      },
+      "phones": [
+        "fdddd"
+      ],
+      "id": "1"
     },
     {
       "id": "2",
-      "types": [{ "id": 1, "label": "Bar" }],
+      "types": [
+        {
+          "id": 1,
+          "label": "Bar"
+        }
+      ],
       "name": "Bar 2",
       "address": "Address 2",
       "description": "Bad place",
-      "phones": ["12345666"],
+      "phones": [
+        "12345666"
+      ],
       "web_site": "www.google.com",
       "socials": [],
       "logoUrl": "",
-      "rating": { "value": 0, "votes": 0 },
+      "rating": {
+        "value": 0,
+        "votes": 0
+      },
       "photosUrls": [],
-      "location": { "lat": 0, "lng": 0 },
+      "location": {
+        "lat": 0,
+        "lng": 0
+      },
       "tags": []
     }
   ],
   "place_types": [
-    { "id": 1, "label": "Bar" },
-    { "id": 2, "label": "Shop" }
+    {
+      "id": 1,
+      "label": "Bar"
+    },
+    {
+      "id": 2,
+      "label": "Shop"
+    }
   ]
 }
