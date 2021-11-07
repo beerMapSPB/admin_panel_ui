@@ -2,13 +2,18 @@
 import { PropType } from 'vue'
 import Icon from '/~/components/icon/Icon.vue'
 import { MenuItem } from '/~/models/MenuItem'
+import UserInfo from './UserInfo.vue'
 
 const props = defineProps({
+  showUserInfo: {
+    type: Boolean,
+    default: true
+  },
   menuItems: {
     type: Array as PropType<MenuItem[]>,
     default: () => [
       {
-        name: 'places',
+        name: 'places-list',
         label: 'Places',
         icon: 'map-pin'
       }
@@ -19,17 +24,20 @@ const props = defineProps({
 
 <template>
   <div class="bg-gray-100 w-full max-w-xs">
+    <UserInfo v-if="showUserInfo"
+              class="w-full mb-12"
+    />
     <RouterLink v-for="item of menuItems"
                 :key="item.name"
                 v-slot="{ isActive }"
                 :to="{ name: item.name }"
     >
       <div class="py-2 px-2 flex items-center"
-           :class="[isActive ? 'bg-blue-100' : 'hover:bg-white hover:bg-opacity-50 ']"
+           :class="[isActive ? 'bg-blue-100' : 'hover:bg-white hover:bg-opacity-50']"
       >
         <Icon :name="item.icon"
               :size="20"
-              class="text-gray-500 mr-1"
+              class="text-gray-500 mr-2"
               :class="[isActive && 'text-blue-600']"
         />
         {{ item.label }}

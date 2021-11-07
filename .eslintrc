@@ -54,6 +54,8 @@
       "named": "never"
     }],
     "import/no-absolute-path": 0,
-    "@typescript-eslint/explicit-module-boundary-types": 0
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2]
   }
 }

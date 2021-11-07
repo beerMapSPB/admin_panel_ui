@@ -1,0 +1,176 @@
+<template>
+  <ViewHeader :title="pageTitle"
+              :subtitle="pageSubtitle"
+  >
+    <template #actions>
+      <Button :loading="processing"
+              @click="submit"
+      >
+        Save
+      </Button>
+    </template>
+  </ViewHeader>
+
+  <div v-if="form"
+       class="max-w-lg px-6 space-y-8"
+  >
+    <Input v-model="form.name"
+           label="Name"
+           placeholder="Place name"
+           required
+    />
+    <Multiselect v-model="form.types"
+                 :options="placeTypesOptions"
+                 required
+                 label="Place type"
+                 placeholder="Select a type"
+    />
+    <Textarea v-model="form.description"
+              label="Description"
+              placeholder="Description"
+    />
+    <Input v-model="form.webSite"
+           label="Web site"
+           placeholder="Web site url"
+    />
+    <div v-for="(phone, i) in form.phones"
+         :key="'phone-' + i"
+         class="flex items-end w-full space-x-2"
+    >
+      <Input v-model="form.phones[i]"
+             :label="`Phone number (${i + 1})`"
+             placeholder="Phone number"
+             class="flex-grow"
+      />
+      <Button v-if="i === form.phones.length - 1"
+              size="sm"
+              look="border"
+              rounded
+              class="mb-1.5"
+      >
+        <Icon name="plus"
+              :size="16"
+              @click="addPhone"
+        />
+      </Button>
+      <Button v-else
+              size="sm"
+              look="border"
+              rounded
+              class="mb-1.5"
+              color="accent"
+      >
+        <Icon name="trash"
+              :size="16"
+              @click="removePhone(i)"
+        />
+      </Button>
+    </div>
+    <div v-for="(social, i) in form.socials"
+         :key="social.name"
+         class="flex items-end space-x-2"
+    >
+      <Select v-model="form.socials[i].name"
+              :options="socialMediaOptions"
+              :label="`Social media name (${i + 1})`"
+              class="flex-grow"
+              placeholder="Select social media"
+      />
+      <Input v-model="form.socials[i].link"
+             :label="`Link (${i + 1})`"
+             class="flex-grow"
+             placeholder="Link to social media"
+      />
+      <Button v-if="i === form.phones.length - 1"
+              size="sm"
+              look="border"
+              rounded
+              class="mb-1.5"
+      >
+        <Icon name="plus"
+              :size="16"
+              @click="addSocialMedia"
+        />
+      </Button>
+      <Button v-else
+              size="sm"
+              look="border"
+              rounded
+              class="mb-1.5"
+              color="accent"
+      >
+        <Icon name="trash"
+              :size="16"
+              @click="removeSocialMedia(i)"
+        />
+      </Button>
+    </div>
+  </div>
+</template>
+
+<script lang='ts' setup>
+import { computed, ref } from '@vue/reactivity'
+import { onMounted } from '@vue/runtime-core'
+import ViewHeader from '/~/components/view-header/view-header.vue'
+import { Place, PlaceImpl } from '/~/models/Place'
+import { getPlaceById, createPlace, updatePlace } from '/~/services/places'
+import { Button, Input, Multiselect, Textarea, Select } from 'noidea-ui'
+import { getPlaceTypes } from '/~/services/placeTypes'
+import Icon from '/~/components/icon/Icon.vue'
+
+const pageTitle = computed<string>(() => props.id ? 'Edit place' : 'Create place')
+const pageSubtitle = computed<string>(() => props.id ? 'ID: ' + props.id : 'Fill in all the required form fields')
+const form = ref<Place | null>(null)
+const placeTypesOptions = ref<{label: string, value: string}[]>([])
+const socialMediaOptions = [{ label: 'instagram', value: 'instagram' }, { label: 'telegram', value: 'telegram' }]
+const processing = ref(false)
+
+const props = defineProps<{
+  id?: string
+}>()
+
+onMounted(async () => {
+  if (props.id) {
+    form.value = await getPlaceById(props.id)
+  } else {
+    form.value = new PlaceImpl()
+  }
+  const placeTypes = await getPlaceTypes()
+
+  placeTypesOptions.value = placeTypes
+})
+
+function addPhone() {
+  form.value?.phones.push('')
+}
+
+function addSocialMedia() {
+  form.value?.socials.push({ name: '', link: '' })
+}
+
+function removePhone(i: number) {
+  form.value?.phones.splice(i, 1)
+}
+
+function removeSocialMedia(i: number) {
+  form.value?.socials.splice(i, 1)
+}
+
+async function submit() {
+  if (!form || !form.value) {
+    return
+  }
+  try {
+    processing.value = true
+
+    if (props.id) {
+      await updatePlace(props.id, form.value)
+    } else {
+      await createPlace(form.value)
+    }
+  } finally {
+    processing.value = false
+  }
+}
+
+</script>
