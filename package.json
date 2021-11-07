@@ -27,7 +27,8 @@
     "@vue/compiler-sfc": "^3.2.6",
     "@vitejs/plugin-vue": "^1.6.1",
     "postcss": "^8.3.9",
-    "tailwindcss": "^2.2.16"
+    "tailwindcss": "^2.2.16",
+    "autoprefixer": "^10.3.7",
   },
   "devDependencies": {
     "@types/node": "^16.11.1",
@@ -35,7 +36,6 @@
     "@typescript-eslint/parser": "^4.31.0",
     "@vue/eslint-config-standard": "^6.1.0",
     "@vue/eslint-config-typescript": "^7.0.0",
-    "autoprefixer": "^10.3.7",
     "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
