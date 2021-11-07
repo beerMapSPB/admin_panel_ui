@@ -41,7 +41,7 @@
     "eslint-plugin-vue": "^7.17.0",
     "json-server": "^0.17.0",
     "postcss": "^8.3.9",
-    "tailwindcss": "^2.2.16",
+    "tailwindcss": "^2.2.16"
   },
   "engines": {
     "node": "14.x"
