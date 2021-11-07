@@ -19,7 +19,8 @@
     "reflect-metadata": "^0.1.13",
     "serve-static": "^1.14.1",
     "vue": "^3.2.6",
-    "vue-router": "^4.0.11"
+    "vue-router": "^4.0.11",
+    "vue-tsc": "^0.2.2"
   },
   "devDependencies": {
     "@types/feather-icons": "^4.7.0",
@@ -40,7 +41,6 @@
     "postcss": "^8.3.9",
     "tailwindcss": "^2.2.16",
     "typescript": "^4.3.2",
-    "vite": "^2.5.4",
-    "vue-tsc": "^0.2.2"
+    "vite": "^2.5.4"
   }
 }
