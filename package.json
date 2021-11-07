@@ -4,16 +4,19 @@
   "scripts": {
     "dev": "MODE=development vite",
     "build": "MODE=production vue-tsc --noEmit && vite build",
-    "serve": "vite preview",
+    "preview": "vite preview",
+    "serve": "npm run build && node server.js",
     "mock-server": "json-server --watch mock_server/db.json --routes mock_server/routes.json --port 3030"
   },
   "dependencies": {
     "axios": "^0.23.0",
     "class-transformer": "^0.4.0",
     "click-outside-vue3": "^4.0.1",
+    "express": "^4.17.1",
     "feather-icons": "^4.28.0",
     "noidea-ui": "0.0.8",
     "reflect-metadata": "^0.1.13",
+    "serve-static": "^1.14.1",
     "vue": "^3.2.6",
     "vue-router": "^4.0.11"
   },

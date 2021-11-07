@@ -1,6 +1,6 @@
 <template>
   <div v-if="place">
-    <ViewHeader :title="place.title"
+    <ViewHeader :title="place.name"
                 :subtitle="'ID: ' + place.id"
     />
     {{ place }}

@@ -2,7 +2,8 @@ import axios from 'axios'
 import { plainToClass, classToPlain } from 'class-transformer'
 import { Place, PlaceId, PlaceImpl } from '../models/Place'
 
-const PLACES_PATH = '/api/v1.0/places'
+const API_PATH = import.meta.env.VITE_API_PATH || ''
+const PLACES_PATH = API_PATH + '/api/v1.0/places'
 
 export async function getPlaces(): Promise<Place[]> {
   const { data } = await axios.get<Place[]>(PLACES_PATH)
