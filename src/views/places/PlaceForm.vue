@@ -36,7 +36,7 @@
            required
            class="xl:col-start-2 xl:col-end-2 xl:row-start-1 xl:row-end-1"
     />
-    <Map :key="form.location"
+    <Map :key="form.location[0]"
          :point="form.location"
          :label="form.address"
          class="xl:col-start-2 xl:col-end-2 xl:row-start-2 xl:row-end-6"
@@ -121,7 +121,7 @@
 </template>
 
 <script lang='ts' setup>
-import { computed, markRaw, reactive, ref } from '@vue/reactivity'
+import { computed, markRaw, ref } from '@vue/reactivity'
 import { onMounted, watch } from '@vue/runtime-core'
 import ViewHeader from '/~/components/view-header/view-header.vue'
 import Map from '../../components/map/map.vue'

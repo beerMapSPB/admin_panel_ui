@@ -46,36 +46,6 @@
         "12345666"
       ],
       "id": "2"
-    },
-    {
-      "name": "dfdf",
-      "address": "fadsfds",
-      "description": "fasdfa",
-      "location": [
-        0,
-        0
-      ],
-      "web_site": "dfads",
-      "socials": [
-        {
-          "name": "",
-          "link": ""
-        }
-      ],
-      "types": [
-        null
-      ],
-      "tags": [],
-      "logo_url": "",
-      "rating": {
-        "value": 0,
-        "votes": 0
-      },
-      "photo_urls": [],
-      "phones": [
-        ""
-      ],
-      "id": "Fe_YyBh"
     }
   ],
   "place_types": [
