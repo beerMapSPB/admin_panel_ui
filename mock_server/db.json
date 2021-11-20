@@ -4,10 +4,10 @@
       "name": "Bar 1",
       "address": "Address 1",
       "description": "dsfdf",
-      "location": {
-        "lat": 0,
-        "lng": 0
-      },
+      "location": [
+        -105.25766200000001,
+        20.746404
+      ],
       "web_site": "www.google.com",
       "socials": [],
       "types": [],
@@ -22,32 +22,60 @@
       "id": "1"
     },
     {
-      "id": "2",
+      "name": "Bar 2",
+      "address": "Address 2",
+      "description": "Bad place",
+      "location": [
+        -81.1546492076469,
+        33.3231104991335
+      ],
+      "web_site": "www.google.com",
+      "socials": [],
       "types": [
         {
           "id": 1,
           "label": "Bar"
         }
       ],
-      "name": "Bar 2",
-      "address": "Address 2",
-      "description": "Bad place",
-      "phones": [
-        "12345666"
-      ],
-      "web_site": "www.google.com",
-      "socials": [],
-      "logoUrl": "",
+      "tags": [],
       "rating": {
         "value": 0,
         "votes": 0
       },
-      "photosUrls": [],
-      "location": {
-        "lat": 0,
-        "lng": 0
+      "phones": [
+        "12345666"
+      ],
+      "id": "2"
+    },
+    {
+      "name": "dfdf",
+      "address": "fadsfds",
+      "description": "fasdfa",
+      "location": [
+        0,
+        0
+      ],
+      "web_site": "dfads",
+      "socials": [
+        {
+          "name": "",
+          "link": ""
+        }
+      ],
+      "types": [
+        null
+      ],
+      "tags": [],
+      "logo_url": "",
+      "rating": {
+        "value": 0,
+        "votes": 0
       },
-      "tags": []
+      "photo_urls": [],
+      "phones": [
+        ""
+      ],
+      "id": "Fe_YyBh"
     }
   ],
   "place_types": [

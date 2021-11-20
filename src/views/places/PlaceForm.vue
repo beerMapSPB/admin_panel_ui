@@ -12,7 +12,7 @@
   </ViewHeader>
 
   <div v-if="form"
-       class="max-w-lg px-6 space-y-8"
+       class="px-6 grid grid-cols-1 xl:grid-cols-2 gap-8"
   >
     <Input v-model="form.name"
            label="Name"
@@ -28,6 +28,18 @@
     <Textarea v-model="form.description"
               label="Description"
               placeholder="Description"
+    />
+
+    <Input v-model="form.address"
+           label="Address"
+           placeholder="Place address"
+           required
+           class="xl:col-start-2 xl:col-end-2 xl:row-start-1 xl:row-end-1"
+    />
+    <Map :key="form.location"
+         :point="form.location"
+         :label="form.address"
+         class="xl:col-start-2 xl:col-end-2 xl:row-start-2 xl:row-end-6"
     />
     <Input v-model="form.webSite"
            label="Web site"
@@ -109,21 +121,25 @@
 </template>
 
 <script lang='ts' setup>
-import { computed, ref } from '@vue/reactivity'
-import { onMounted } from '@vue/runtime-core'
+import { computed, markRaw, reactive, ref } from '@vue/reactivity'
+import { onMounted, watch } from '@vue/runtime-core'
 import ViewHeader from '/~/components/view-header/view-header.vue'
+import Map from '../../components/map/map.vue'
 import { Place, PlaceImpl } from '/~/models/Place'
 import { getPlaceById, createPlace, updatePlace } from '/~/services/places'
 import { Button, Input, Multiselect, Textarea, Select } from 'noidea-ui'
 import { getPlaceTypes } from '/~/services/placeTypes'
 import Icon from '/~/components/icon/Icon.vue'
+import { getGeocoding } from '/~/services/maps'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const pageTitle = computed<string>(() => props.id ? 'Edit place' : 'Create place')
 const pageSubtitle = computed<string>(() => props.id ? 'ID: ' + props.id : 'Fill in all the required form fields')
-const form = ref<Place | null>(null)
 const placeTypesOptions = ref<{label: string, value: string}[]>([])
 const socialMediaOptions = [{ label: 'instagram', value: 'instagram' }, { label: 'telegram', value: 'telegram' }]
 const processing = ref(false)
+const form = ref<Place | null>(null)
 
 const props = defineProps<{
   id?: string
@@ -139,6 +155,15 @@ onMounted(async () => {
 
   placeTypesOptions.value = placeTypes
 })
+
+watch(form, async (value, oldValue) => {
+  if (!value || !form.value || value?.address === oldValue?.address) {
+    return
+  }
+  const point = await getGeocoding(value.address)
+
+  form.value.location = markRaw(point.coordinates)
+}, { deep: true })
 
 function addPhone() {
   form.value?.phones.push('')
@@ -168,6 +193,7 @@ async function submit() {
     } else {
       await createPlace(form.value)
     }
+    router.push({ name: 'places-list' })
   } finally {
     processing.value = false
   }

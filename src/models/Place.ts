@@ -27,7 +27,7 @@ export type Place = {
   name: string
   description: string
   address: string
-  location: Location
+  location: number[]
   phones: string[]
   webSite: string
   socials: Social[]
@@ -42,7 +42,7 @@ export class PlaceImpl implements Place {
   name = ''
   address = ''
   description = ''
-  location = { lat: 0, lng: 0 }
+  location = [0, 0]
 
   @Expose({ name: 'web_site' })
   webSite = ''
