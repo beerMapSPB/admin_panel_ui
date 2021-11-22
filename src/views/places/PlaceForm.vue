@@ -124,7 +124,7 @@
 import { computed, markRaw, ref } from '@vue/reactivity'
 import { onMounted, watch } from '@vue/runtime-core'
 import ViewHeader from '/~/components/view-header/view-header.vue'
-import Map from '../../components/map/Map.vue'
+import Map from '/~/components/map/Map.vue'
 import { Place, PlaceImpl } from '/~/models/Place'
 import { getPlaceById, createPlace, updatePlace } from '/~/services/places'
 import { Button, Input, Multiselect, Textarea, Select } from 'noidea-ui'
