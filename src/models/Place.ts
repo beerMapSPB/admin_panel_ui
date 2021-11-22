@@ -43,8 +43,8 @@ export class PlaceImpl implements Place {
   address = ''
   description = ''
 
-  @Transform(({ value }) => [value.lat, value.lng])
-  location = [0, 0] as [number, number] // TODO fix error
+  @Transform(({ value }) => [value.lat, value.lon])
+  location = [0, 0] as [number, number]
 
   @Expose({ name: 'web_site' })
   webSite = ''
