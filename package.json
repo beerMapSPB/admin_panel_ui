@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@types/feather-icons": "^4.7.0",
+    "@types/mapbox-gl": "^2.4.2",
     "@vitejs/plugin-vue": "^1.6.1",
     "@vue/compiler-sfc": "^3.2.6",
     "autoprefixer": "^10.3.7",
