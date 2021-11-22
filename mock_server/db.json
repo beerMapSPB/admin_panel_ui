@@ -4,10 +4,7 @@
       "name": "Bar 1",
       "address": "Address 1",
       "description": "dsfdf",
-      "location": {
-        "lat": 0,
-        "lng": 0
-      },
+      "location": { "lat": -81.1546492076469, "lng": 33.3231104991335 },
       "web_site": "www.google.com",
       "socials": [],
       "types": [],
@@ -22,32 +19,27 @@
       "id": "1"
     },
     {
-      "id": "2",
+      "name": "Bar 2",
+      "address": "Address 2",
+      "description": "Bad place",
+      "location": { "lat": -81.1546492076469, "lng": 33.3231104991335 },
+      "web_site": "www.google.com",
+      "socials": [],
       "types": [
         {
           "id": 1,
           "label": "Bar"
         }
       ],
-      "name": "Bar 2",
-      "address": "Address 2",
-      "description": "Bad place",
-      "phones": [
-        "12345666"
-      ],
-      "web_site": "www.google.com",
-      "socials": [],
-      "logoUrl": "",
+      "tags": [],
       "rating": {
         "value": 0,
         "votes": 0
       },
-      "photosUrls": [],
-      "location": {
-        "lat": 0,
-        "lng": 0
-      },
-      "tags": []
+      "phones": [
+        "12345666"
+      ],
+      "id": "2"
     }
   ],
   "place_types": [

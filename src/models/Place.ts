@@ -1,4 +1,4 @@
-import { Expose } from 'class-transformer'
+import { Expose, Transform } from 'class-transformer'
 
 export type PlaceId = string
 
@@ -27,7 +27,7 @@ export type Place = {
   name: string
   description: string
   address: string
-  location: Location
+  location: [number, number]
   phones: string[]
   webSite: string
   socials: Social[]
@@ -42,7 +42,9 @@ export class PlaceImpl implements Place {
   name = ''
   address = ''
   description = ''
-  location = { lat: 0, lng: 0 }
+
+  @Transform(({ value }) => [value.lat, value.lon])
+  location = [0, 0] as [number, number]
 
   @Expose({ name: 'web_site' })
   webSite = ''

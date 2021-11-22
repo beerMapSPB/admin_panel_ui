@@ -1,14 +1,15 @@
 import axios from 'axios'
 import { plainToClass, classToPlain } from 'class-transformer'
+import { Pageable } from '../models/Pageable'
 import { Place, PlaceId, PlaceImpl } from '../models/Place'
 
 const API_PATH = import.meta.env.VITE_API_PATH || ''
-const PLACES_PATH = API_PATH + '/api/v1.0/places'
+const PLACES_PATH = API_PATH + '/places'
 
 export async function getPlaces(): Promise<Place[]> {
-  const { data } = await axios.get<Place[]>(PLACES_PATH)
+  const { data } = await axios.get<Pageable<Place>>(PLACES_PATH)
 
-  return data.map(item => plainToClass(PlaceImpl, item))
+  return data.items.map(item => plainToClass(PlaceImpl, item))
 }
 
 export async function getPlaceById(placeId: PlaceId): Promise<Place> {
