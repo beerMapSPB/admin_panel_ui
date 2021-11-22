@@ -4,10 +4,7 @@
       "name": "Bar 1",
       "address": "Address 1",
       "description": "dsfdf",
-      "location": [
-        -105.25766200000001,
-        20.746404
-      ],
+      "location": { "lat": -81.1546492076469, "lng": 33.3231104991335 },
       "web_site": "www.google.com",
       "socials": [],
       "types": [],
@@ -25,10 +22,7 @@
       "name": "Bar 2",
       "address": "Address 2",
       "description": "Bad place",
-      "location": [
-        -81.1546492076469,
-        33.3231104991335
-      ],
+      "location": { "lat": -81.1546492076469, "lng": 33.3231104991335 },
       "web_site": "www.google.com",
       "socials": [],
       "types": [

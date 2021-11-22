@@ -10,13 +10,9 @@ import mapboxgl from 'mapbox-gl'
 import { onMounted } from '@vue/runtime-core'
 
 const props = defineProps<{
-  point: number[]
+  point: [number, number]
   label?: string
 }>()
-
-function fdfad(fdfds) {
-  console.log(fdfds, 'fdf')
-}
 
 onMounted(() => {
   mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN as string

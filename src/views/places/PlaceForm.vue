@@ -124,7 +124,7 @@
 import { computed, markRaw, ref } from '@vue/reactivity'
 import { onMounted, watch } from '@vue/runtime-core'
 import ViewHeader from '/~/components/view-header/view-header.vue'
-import Map from '../../components/map/map.vue'
+import Map from '../../components/map/Map.vue'
 import { Place, PlaceImpl } from '/~/models/Place'
 import { getPlaceById, createPlace, updatePlace } from '/~/services/places'
 import { Button, Input, Multiselect, Textarea, Select } from 'noidea-ui'
@@ -157,7 +157,7 @@ onMounted(async () => {
 })
 
 watch(form, async (value, oldValue) => {
-  if (!value || !form.value || value?.address === oldValue?.address) {
+  if (!value || !form.value || value.address === oldValue?.address) {
     return
   }
   const point = await getGeocoding(value.address)
