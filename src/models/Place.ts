@@ -7,6 +7,11 @@ export type PlaceType = {
   label: string
 }
 
+export type Tag = {
+  id: string,
+  label: string
+}
+
 export type Social = {
   name: string,
   link: string
@@ -29,10 +34,10 @@ export type Place = {
   address: string
   location: [number, number]
   phones: string[]
-  webSite: string
+  webSites: string[]
   socials: Social[]
   types: PlaceType[]
-  tags: string[]
+  tags: Tag[]
   logoUrl: string
   rating: Rating
   photosUrls: string[]
@@ -46,8 +51,8 @@ export class PlaceImpl implements Place {
   @Transform(({ value }) => [value.lat, value.lon])
   location = [0, 0] as [number, number]
 
-  @Expose({ name: 'web_site' })
-  webSite = ''
+  @Expose({ name: 'web_sites' })
+  webSites = []
 
   socials = [{ name: '', link: '' }]
 
