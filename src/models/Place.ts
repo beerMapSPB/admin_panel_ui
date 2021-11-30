@@ -2,13 +2,8 @@ import { Expose, Transform } from 'class-transformer'
 
 export type PlaceId = string
 
-export type PlaceType = {
+export type Option = {
   value: string,
-  label: string
-}
-
-export type Tag = {
-  id: string,
   label: string
 }
 
@@ -22,11 +17,6 @@ export type Rating = {
   votes: number
 }
 
-export type Location = {
-  lat: number,
-  lng: number
-}
-
 export type Place = {
   id?: PlaceId
   name: string
@@ -36,41 +26,52 @@ export type Place = {
   phones: string[]
   webSites: string[]
   socials: Social[]
-  types: PlaceType[]
-  tags: Tag[]
+  types: Option[]
+  tags: Option[]
   logoUrl: string
   rating: Rating
   photosUrls: string[]
 }
 
 export class PlaceImpl implements Place {
+  @Expose()
   name = ''
+
+  @Expose()
   address = ''
+
+  @Expose()
   description = ''
 
+  @Expose()
   @Transform(({ value }) => [value.lat, value.lon])
   location = [0, 0] as [number, number]
 
   @Expose({ name: 'web_sites' })
   webSites = []
 
+  @Expose()
   socials = [{ name: '', link: '' }]
 
-  types: PlaceType[] = []
+  @Expose()
+  types: Option[] = []
 
-  tags = []
+  @Expose()
+  tags: Option[] = []
 
   @Expose({ name: 'logo_url' })
   logoUrl = ''
 
+  @Expose()
   rating = { value: 0, votes: 0 }
 
   @Expose({ name: 'photo_urls' })
   photosUrls = []
 
+  @Expose()
   phones = ['']
 
-  get typesLabels(): string[] {
-    return this.types.map(item => item.label)
+  get typesLabelsString(): string {
+    return this.types.map(item => item.label).join(', ')
   }
 }

@@ -26,12 +26,12 @@ export async function createPlace(place: Place): Promise<Place> {
 }
 
 export async function updatePlace(placeId: PlaceId, place: Place): Promise<Place> {
-  const body = classToPlain(place)
-  const { data } = await axios.put<Place>(PLACES_PATH + '/' + placeId, body)
+  const body = classToPlain(place, { excludeExtraneousValues: true })
+  const { data } = await axios.patch<Place>(PLACES_PATH + '/' + placeId, body)
 
   return plainToClass(PlaceImpl, data)
 }
 
-export async function deletePlace(placeId: PlaceId): Promise<void> {
+export async function deletePlaceById(placeId: PlaceId): Promise<void> {
   return axios.delete(PLACES_PATH + '/' + placeId)
 }

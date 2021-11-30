@@ -19,7 +19,7 @@
            placeholder="Place name"
            required
     />
-    <Multiselect v-model="form.types"
+    <Multiselect v-model="placeTypes"
                  :options="placeTypesOptions"
                  required
                  label="Place type"
@@ -121,7 +121,7 @@
 </template>
 
 <script lang='ts' setup>
-import { computed, markRaw, ref } from '@vue/reactivity'
+import { computed, markRaw, ref, toRaw } from '@vue/reactivity'
 import { onMounted, watch } from '@vue/runtime-core'
 import ViewHeader from '/~/components/view-header/view-header.vue'
 import Map from '/~/components/map/MapView.vue'
@@ -140,6 +140,7 @@ const placeTypesOptions = ref<{label: string, value: string}[]>([])
 const socialMediaOptions = [{ label: 'instagram', value: 'instagram' }, { label: 'telegram', value: 'telegram' }]
 const processing = ref(false)
 const form = ref<Place | null>(null)
+const placeTypes = ref<string[]>([])
 
 const props = defineProps<{
   id?: string
@@ -151,9 +152,8 @@ onMounted(async () => {
   } else {
     form.value = new PlaceImpl()
   }
-  const placeTypes = await getPlaceTypes()
-
-  placeTypesOptions.value = placeTypes
+  placeTypesOptions.value = await getPlaceTypes()
+  placeTypes.value = form.value.types.map(item => item.value)
 })
 
 watch(form, async (value, oldValue) => {
@@ -187,11 +187,11 @@ async function submit() {
   }
   try {
     processing.value = true
-
+    form.value.types = placeTypesOptions.value.filter(option => placeTypes.value.includes(option.value))
     if (props.id) {
       await updatePlace(props.id, form.value)
     } else {
-      await createPlace(form.value)
+      await createPlace(toRaw(form.value))
     }
     router.push({ name: 'places-list' })
   } finally {
