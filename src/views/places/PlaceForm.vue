@@ -1,6 +1,7 @@
 <template>
   <ViewHeader :title="pageTitle"
               :subtitle="pageSubtitle"
+              class="border-b"
   >
     <template #actions>
       <Button :loading="processing"
@@ -12,7 +13,7 @@
   </ViewHeader>
 
   <div v-if="form"
-       class="px-6 grid grid-cols-1 xl:grid-cols-2 gap-8"
+       class="px-6 grid grid-cols-1 xl:grid-cols-2 gap-8 py-10"
   >
     <Input v-model="form.name"
            label="Name"
@@ -68,7 +69,7 @@
     />
     <div v-for="(phone, i) in form.phones"
          :key="'phone-' + i"
-         class="flex items-end w-full space-x-2"
+         class="flex items-end w-full space-x-2 xl:col-start-1 xl:col-end-1"
     >
       <Input v-model="form.phones[i]"
              :label="`Phone number (${i + 1})`"
@@ -101,7 +102,7 @@
     </div>
     <div v-for="(social, i) in form.socials"
          :key="social.name"
-         class="flex items-end space-x-2"
+         class="flex items-end space-x-2 xl:col-start-1 xl:col-end-1"
     >
       <Select v-model="form.socials[i].name"
               :options="socialMediaOptions"
