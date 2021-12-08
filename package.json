@@ -22,7 +22,7 @@
     "express": "^4.17.1",
     "feather-icons": "^4.28.0",
     "mapbox-gl": "^2.5.1",
-    "noidea-ui": "0.0.8",
+    "noidea-ui": "0.0.10",
     "postcss": "^8.3.9",
     "reflect-metadata": "^0.1.13",
     "serve-static": "^1.14.1",

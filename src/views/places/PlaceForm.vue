@@ -19,12 +19,33 @@
            placeholder="Place name"
            required
     />
-    <Multiselect v-model="placeTypes"
+    <Multiselect v-model="form.typesIds"
                  :options="placeTypesOptions"
                  required
                  label="Place type"
-                 placeholder="Select a type"
+                 placeholder="Select types"
     />
+
+    <Multiselect v-model="form.tagsIds"
+                 :options="tagsOptions"
+                 required
+                 label="Tags"
+                 placeholder="Select tags"
+                 :searchable="true"
+                 @searchQueryInput="tagsSearchQuery = $event"
+    >
+      <template #bottom>
+        <button v-if="tagsSearchQuery"
+                class="bg-gray-50 w-full text-left px-4 h-9 leading-9 hover:bg-gray-100"
+                @click="createNewTag"
+        >
+          Create
+          <span class="bg-sky-50 bg-opacity-70 px-1.5 py-0.5 rounded-sm">{{ tagsSearchQuery }}
+          </span>
+        </button>
+      </template>
+    </Multiselect>
+
     <Textarea v-model="form.description"
               label="Description"
               placeholder="Description"
@@ -132,15 +153,18 @@ import { getPlaceTypes } from '/~/services/placeTypes'
 import Icon from '/~/components/icon/Icon.vue'
 import { getGeocoding } from '/~/services/maps'
 import { useRouter } from 'vue-router'
+import { Option } from '/~/models/Option'
+import { createTag, getTags } from '/~/services/tags'
 
 const router = useRouter()
 const pageTitle = computed<string>(() => props.id ? 'Edit place' : 'Create place')
 const pageSubtitle = computed<string>(() => props.id ? 'ID: ' + props.id : 'Fill in all the required form fields')
-const placeTypesOptions = ref<{label: string, value: string}[]>([])
+const placeTypesOptions = ref<Option[]>([])
+const tagsOptions = ref<Option[]>([])
 const socialMediaOptions = [{ label: 'instagram', value: 'instagram' }, { label: 'telegram', value: 'telegram' }]
 const processing = ref(false)
 const form = ref<Place | null>(null)
-const placeTypes = ref<string[]>([])
+const tagsSearchQuery = ref('')
 
 const props = defineProps<{
   id?: string
@@ -149,11 +173,13 @@ const props = defineProps<{
 onMounted(async () => {
   if (props.id) {
     form.value = await getPlaceById(props.id)
+    form.value.typesIds = form.value.types.map(option => option.value)
+    form.value.tagsIds = form.value.tags.map(option => option.value)
   } else {
     form.value = new PlaceImpl()
   }
   placeTypesOptions.value = await getPlaceTypes()
-  placeTypes.value = form.value.types.map(item => item.value)
+  tagsOptions.value = await getTags()
 })
 
 watch(form, async (value, oldValue) => {
@@ -187,7 +213,6 @@ async function submit() {
   }
   try {
     processing.value = true
-    form.value.types = placeTypesOptions.value.filter(option => placeTypes.value.includes(option.value))
     if (props.id) {
       await updatePlace(props.id, form.value)
     } else {
@@ -197,6 +222,13 @@ async function submit() {
   } finally {
     processing.value = false
   }
+}
+
+async function createNewTag() {
+  const createdTag = await createTag({ label: tagsSearchQuery.value })
+
+  tagsOptions.value.push(createdTag)
+  form.value?.tagsIds.push(createdTag.value)
 }
 
 </script>

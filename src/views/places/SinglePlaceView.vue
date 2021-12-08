@@ -12,7 +12,7 @@
           </Button>
           <Button size="sm"
                   color="accent"
-                  @click="removePlace"
+                  @click="deletePlace"
           >
             Delete
           </Button>
@@ -93,7 +93,7 @@
 import { Ref, ref } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
 import { Place } from '/~/models/Place'
-import { getPlaceById, deletePlace } from '/~/services/places'
+import { getPlaceById, deletePlaceById } from '/~/services/places'
 import ViewHeader from '/~/components/view-header/view-header.vue'
 import { Button, Tag } from 'noidea-ui'
 import { useRouter } from 'vue-router'
@@ -113,11 +113,11 @@ function goToEditForm() {
   router.push({ name: 'edit-place', params: { id: props.id }})
 }
 
-async function removePlace() {
+async function deletePlace() {
   const confirmed = confirm('Are you sure you want to delete place ' + place.value?.name + '?')
 
   if (confirmed) {
-    await deletePlace(props.id)
+    await deletePlaceById(props.id)
     router.push({ name: 'places-list' })
   }
 }

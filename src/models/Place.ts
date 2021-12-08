@@ -1,11 +1,7 @@
-import { Expose, Transform } from 'class-transformer'
+import { Expose, Transform, Type } from 'class-transformer'
+import { OptionImpl, Option } from './Option'
 
 export type PlaceId = string
-
-export type Option = {
-  value: string,
-  label: string
-}
 
 export type Social = {
   name: string,
@@ -27,7 +23,9 @@ export type Place = {
   webSites: string[]
   socials: Social[]
   types: Option[]
+  typesIds: (number | undefined)[]
   tags: Option[]
+  tagsIds: (number | undefined)[]
   logoUrl: string
   rating: Rating
   photosUrls: string[]
@@ -54,10 +52,18 @@ export class PlaceImpl implements Place {
   socials = [{ name: '', link: '' }]
 
   @Expose()
+  @Type(() => OptionImpl)
   types: Option[] = []
 
+  @Expose({ name: 'types_ids' })
+  typesIds: (number | undefined)[] = []
+
   @Expose()
+  @Type(() => OptionImpl)
   tags: Option[] = []
+
+  @Expose({ name: 'tags_ids' })
+  tagsIds: (number | undefined)[] = []
 
   @Expose({ name: 'logo_url' })
   logoUrl = ''
