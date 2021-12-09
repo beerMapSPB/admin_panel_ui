@@ -1,6 +1,7 @@
 <template>
   <ViewHeader :title="pageTitle"
               :subtitle="pageSubtitle"
+              class="border-b"
   >
     <template #actions>
       <Button :loading="processing"
@@ -12,19 +13,40 @@
   </ViewHeader>
 
   <div v-if="form"
-       class="px-6 grid grid-cols-1 xl:grid-cols-2 gap-8"
+       class="px-6 grid grid-cols-1 xl:grid-cols-2 gap-8 py-10"
   >
     <Input v-model="form.name"
            label="Name"
            placeholder="Place name"
            required
     />
-    <Multiselect v-model="form.types"
+    <Multiselect v-model="form.typesIds"
                  :options="placeTypesOptions"
                  required
                  label="Place type"
-                 placeholder="Select a type"
+                 placeholder="Select types"
     />
+
+    <Multiselect v-model="form.tagsIds"
+                 :options="tagsOptions"
+                 required
+                 label="Tags"
+                 placeholder="Select tags"
+                 :searchable="true"
+                 @searchQueryInput="tagsSearchQuery = $event"
+    >
+      <template #bottom>
+        <button v-if="tagsSearchQuery"
+                class="bg-gray-50 w-full text-left px-4 h-9 leading-9 hover:bg-gray-100"
+                @click="createNewTag"
+        >
+          Create
+          <span class="bg-sky-50 bg-opacity-70 px-1.5 py-0.5 rounded-sm">{{ tagsSearchQuery }}
+          </span>
+        </button>
+      </template>
+    </Multiselect>
+
     <Textarea v-model="form.description"
               label="Description"
               placeholder="Description"
@@ -47,7 +69,7 @@
     />
     <div v-for="(phone, i) in form.phones"
          :key="'phone-' + i"
-         class="flex items-end w-full space-x-2"
+         class="flex items-end w-full space-x-2 xl:col-start-1 xl:col-end-1"
     >
       <Input v-model="form.phones[i]"
              :label="`Phone number (${i + 1})`"
@@ -80,7 +102,7 @@
     </div>
     <div v-for="(social, i) in form.socials"
          :key="social.name"
-         class="flex items-end space-x-2"
+         class="flex items-end space-x-2 xl:col-start-1 xl:col-end-1"
     >
       <Select v-model="form.socials[i].name"
               :options="socialMediaOptions"
@@ -121,7 +143,7 @@
 </template>
 
 <script lang='ts' setup>
-import { computed, markRaw, ref } from '@vue/reactivity'
+import { computed, markRaw, ref, toRaw } from '@vue/reactivity'
 import { onMounted, watch } from '@vue/runtime-core'
 import ViewHeader from '/~/components/view-header/view-header.vue'
 import Map from '/~/components/map/MapView.vue'
@@ -132,14 +154,18 @@ import { getPlaceTypes } from '/~/services/placeTypes'
 import Icon from '/~/components/icon/Icon.vue'
 import { getGeocoding } from '/~/services/maps'
 import { useRouter } from 'vue-router'
+import { Option } from '/~/models/Option'
+import { createTag, getTags } from '/~/services/tags'
 
 const router = useRouter()
 const pageTitle = computed<string>(() => props.id ? 'Edit place' : 'Create place')
 const pageSubtitle = computed<string>(() => props.id ? 'ID: ' + props.id : 'Fill in all the required form fields')
-const placeTypesOptions = ref<{label: string, value: string}[]>([])
+const placeTypesOptions = ref<Option[]>([])
+const tagsOptions = ref<Option[]>([])
 const socialMediaOptions = [{ label: 'instagram', value: 'instagram' }, { label: 'telegram', value: 'telegram' }]
 const processing = ref(false)
 const form = ref<Place | null>(null)
+const tagsSearchQuery = ref('')
 
 const props = defineProps<{
   id?: string
@@ -148,12 +174,13 @@ const props = defineProps<{
 onMounted(async () => {
   if (props.id) {
     form.value = await getPlaceById(props.id)
+    form.value.typesIds = form.value.types.map(option => option.value)
+    form.value.tagsIds = form.value.tags.map(option => option.value)
   } else {
     form.value = new PlaceImpl()
   }
-  const placeTypes = await getPlaceTypes()
-
-  placeTypesOptions.value = placeTypes
+  placeTypesOptions.value = await getPlaceTypes()
+  tagsOptions.value = await getTags()
 })
 
 watch(form, async (value, oldValue) => {
@@ -187,16 +214,22 @@ async function submit() {
   }
   try {
     processing.value = true
-
     if (props.id) {
       await updatePlace(props.id, form.value)
     } else {
-      await createPlace(form.value)
+      await createPlace(toRaw(form.value))
     }
     router.push({ name: 'places-list' })
   } finally {
     processing.value = false
   }
+}
+
+async function createNewTag() {
+  const createdTag = await createTag({ label: tagsSearchQuery.value })
+
+  tagsOptions.value.push(createdTag)
+  form.value?.tagsIds.push(createdTag.value)
 }
 
 </script>

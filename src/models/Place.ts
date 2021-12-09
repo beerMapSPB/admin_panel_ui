@@ -1,11 +1,7 @@
-import { Expose, Transform } from 'class-transformer'
+import { Expose, Transform, Type } from 'class-transformer'
+import { OptionImpl, Option } from './Option'
 
 export type PlaceId = string
-
-export type PlaceType = {
-  value: string,
-  label: string
-}
 
 export type Social = {
   name: string,
@@ -17,11 +13,6 @@ export type Rating = {
   votes: number
 }
 
-export type Location = {
-  lat: number,
-  lng: number
-}
-
 export type Place = {
   id?: PlaceId
   name: string
@@ -29,43 +20,64 @@ export type Place = {
   address: string
   location: [number, number]
   phones: string[]
-  webSite: string
+  webSites: string[]
   socials: Social[]
-  types: PlaceType[]
-  tags: string[]
+  types: Option[]
+  typesIds: (number | undefined)[]
+  tags: Option[]
+  tagsIds: (number | undefined)[]
   logoUrl: string
   rating: Rating
   photosUrls: string[]
 }
 
 export class PlaceImpl implements Place {
+  @Expose()
   name = ''
+
+  @Expose()
   address = ''
+
+  @Expose()
   description = ''
 
+  @Expose()
   @Transform(({ value }) => [value.lat, value.lon])
   location = [0, 0] as [number, number]
 
-  @Expose({ name: 'web_site' })
-  webSite = ''
+  @Expose({ name: 'web_sites' })
+  webSites = []
 
+  @Expose()
   socials = [{ name: '', link: '' }]
 
-  types: PlaceType[] = []
+  @Expose()
+  @Type(() => OptionImpl)
+  types: Option[] = []
 
-  tags = []
+  @Expose({ name: 'types_ids' })
+  typesIds: (number | undefined)[] = []
+
+  @Expose()
+  @Type(() => OptionImpl)
+  tags: Option[] = []
+
+  @Expose({ name: 'tags_ids' })
+  tagsIds: (number | undefined)[] = []
 
   @Expose({ name: 'logo_url' })
   logoUrl = ''
 
+  @Expose()
   rating = { value: 0, votes: 0 }
 
   @Expose({ name: 'photo_urls' })
   photosUrls = []
 
+  @Expose()
   phones = ['']
 
-  get typesLabels(): string[] {
-    return this.types.map(item => item.label)
+  get typesLabelsString(): string {
+    return this.types.map(item => item.label).join(', ')
   }
 }

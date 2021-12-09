@@ -20,7 +20,7 @@ import { Button } from 'noidea-ui'
 import { computed, onMounted, Ref, ref } from '@vue/runtime-core'
 import { useRouter } from 'vue-router'
 import { Place } from '/~/models/Place'
-import { getPlaces, deletePlace } from '/~/services/places'
+import { getPlaces, deletePlaceById } from '/~/services/places'
 import Table from '/~/components/table/Table.vue'
 import { Column } from '/~/components/table/types/Column'
 import ViewHeader from '/~/components/view-header/view-header.vue'
@@ -49,7 +49,7 @@ const tableCols: Column[] = [
     type: 'text'
   },
   {
-    param: 'types',
+    param: 'typesLabelsString',
     label: {
       text: 'Type'
     },
@@ -86,7 +86,7 @@ const tableActions = [
       const confirmed = confirm('Are you sure you want to delete place ' + data.name + '?')
 
       if (confirmed) {
-        await deletePlace(data.id as string)
+        await deletePlaceById(data.id as string)
         location.reload()
       }
     }
